@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block title %}Employee{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <h1>Employee Management Software</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mt-4">
+        <a href="{% url 'create' %}" class="btn btn-primary">Add Employee</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mt-4">
+        {% if messages %}
+            {% for message in messages %}
+                <h4 class="alert alert-success" role="alert">{{message}}</h4>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 mt-4 table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID.</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Salary</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in emps %}
+                <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.first_name}}</td>
+                    <td>{{i.last_name}}</td>
+                    <td>{{i.email}}</td>
+                    <td>${{i.salary}}</td>
+                    <td>{{i.date_of_joining | date:'Y-m-d'}}</td>
+                    <td>
+                        <a href="{% url 'update' i.id %}" style="color: black;"><i class="material-icons">&#xe923;</i></a>
+
+                        <a href="{% url 'delete' i.id %}" style="color: black;"><i class="material-icons">&#xe872;</i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
