@@ -45,7 +45,7 @@
                     <td>{{i.last_name}}</td>
                     <td>{{i.email}}</td>
                     <td>${{i.salary}}</td>
-                    <td>{{i.date_of_joining | date:'Y-m-d'}}</td>
+                    <td>{{i.joining_date | date:'Y-m-d'}}</td>
                     <td>
                         <a href="{% url 'update' i.id %}" style="color: black;"><i class="material-icons">&#xe923;</i></a>
 
