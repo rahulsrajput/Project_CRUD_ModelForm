@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for i in emps %}
+                {% for i in page_obj %}
                 <tr>
                     <td>{{i.id}}</td>
                     <td>{{i.first_name}}</td>
@@ -53,8 +53,20 @@
                     </td>
                 </tr>
                 {% endfor %}
+                
             </tbody>
         </table>
+
+        {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}" class="btn btn-outline-dark btn-sm">previous</a>
+        {% endif %}
+
+        <span>Page: {{page_obj.number}} out of {{total_page}}</span>
+        
+        {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-dark btn-sm">next</a>
+        {% endif %}
+
     </div>
 </div>
 {% endblock %}

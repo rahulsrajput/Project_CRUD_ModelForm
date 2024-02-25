@@ -4,10 +4,27 @@ from .models import Employee
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 
+from django.core.paginator import Paginator
+
 # Create your views here.
 def home(request):
-    emps = Employee.objects.all()
-    return render(request,'home.html', context={'emps':emps})
+    emps = Employee.objects.all().order_by('id')
+    
+    paginator = Paginator(emps, 4)
+    print(paginator)
+
+    page_number = request.GET.get('page')
+    print(page_number)
+
+    page_obj = paginator.get_page(page_number)
+    print(page_obj)
+
+    total_page = paginator.num_pages
+    print(total_page)
+
+    return render(request,'home.html', context={'page_obj':page_obj,'total_page':total_page})
+
+
 
 
 def create(request):
