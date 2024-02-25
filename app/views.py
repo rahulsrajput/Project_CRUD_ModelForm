@@ -47,4 +47,5 @@ def update(request, id):
 def delete(request,id):
     object = Employee.objects.get(pk=id)
     object.delete()
+    messages.success(request,'Successfully Deleted')
     return HttpResponseRedirect('/')
