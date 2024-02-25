@@ -18,7 +18,7 @@ def create(request):
             messages.success(request, 'Successfully Added')
             return HttpResponseRedirect('/')
         
-        
+
     form = EmployeeModelForm()
     return render(request, 'create.html',context={'form':form})
 
@@ -36,6 +36,7 @@ def update(request, id):
             emp = Employee(pk=id,first_name = firstName, last_name=lastName, email=email, salary=salary, joining_date=date)
             emp.save()
 
+            messages.success(request,'Successfully Updated')
             return HttpResponseRedirect('/')
 
     object = Employee.objects.get(pk=id)
