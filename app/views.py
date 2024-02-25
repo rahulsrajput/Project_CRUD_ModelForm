@@ -32,5 +32,7 @@ def update(request):
     pass
 
 
-def delete(request):
-    pass
+def delete(request,id):
+    object = Employee.objects.get(pk=id)
+    object.delete()
+    return HttpResponseRedirect('/')
