@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% block title %}Update{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <h1>Update Employee</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8 mt-4">
+        
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+
+            <button type="submit" class="btn btn-danger">update</button>
+            <a href="{% url 'home' %}" class="btn btn-success">Back</a>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

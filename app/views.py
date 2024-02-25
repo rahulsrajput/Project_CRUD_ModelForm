@@ -28,8 +28,24 @@ def create(request):
     return render(request, 'create.html',context={'form':form})
 
 
-def update(request):
-    pass
+def update(request, id):
+    if request.method == 'POST':
+        form = EmployeeModelForm(request.POST)
+        if form.is_valid():
+            firstName = form.cleaned_data['first_name']
+            lastName = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            salary = form.cleaned_data['salary']
+            date = form.cleaned_data['joining_date']
+
+            emp = Employee(pk=id,first_name = firstName, last_name=lastName, email=email, salary=salary, joining_date=date)
+            emp.save()
+            
+            return HttpResponseRedirect('/')
+
+    object = Employee.objects.get(pk=id)
+    form = EmployeeModelForm(instance=object)
+    return render(request,'update.html',context={'form':form})
 
 
 def delete(request,id):
