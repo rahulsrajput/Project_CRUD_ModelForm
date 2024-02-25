@@ -8,8 +8,11 @@
 </div>
 
 <div class="row">
-    <div class="col-lg-8 mt-4">
+    <div class="col-lg-2 mt-4">
         <a href="{% url 'create' %}" class="btn btn-outline-dark">Add Employee</a>
+    </div>
+    <div class="col-lg-2 mt-4">
+        <a href="{% url 'csv' %}" class="btn btn-outline-dark">Import CSV</a>
     </div>
 </div>
 
@@ -17,7 +20,7 @@
     <div class="col-lg-8 mt-4">
         {% if messages %}
             {% for message in messages %}
-                <h4 class="alert alert-light" role="alert">{{message}}</h4>
+                <h4 class="alert alert-dark" role="alert">{{message}}</h4>
             {% endfor %}
         {% endif %}
     </div>

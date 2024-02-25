@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from .modelForm import EmployeeModelForm
 from .models import Employee
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib import messages
 
 from django.core.paginator import Paginator
+import csv
+from .csvForm import CSVForm
 
 # Create your views here.
 def home(request):
@@ -66,3 +68,36 @@ def delete(request,id):
     object.delete()
     messages.success(request,'Successfully Deleted')
     return HttpResponseRedirect('/')
+
+
+
+
+######
+def import_csv(request):
+    try:
+        if request.method == 'POST':
+            form = CSVForm(request.POST, request.FILES)
+            if form.is_valid():
+                csv_file = request.FILES['csv_file'].read().decode('utf-8').splitlines()
+                print(csv_file)
+                csv_reader = csv.DictReader(csv_file)
+
+                for row in csv_reader:
+                    Employee.objects.create(
+                        first_name = row['first_name'],
+                        last_name = row['last_name'],
+                        email = row['email'],
+                        salary = row['salary'],
+                        joining_date = row['joining_date'],
+                    )
+
+                messages.success(request, 'Successfully Imported All Data')
+                return HttpResponseRedirect('/')
+        
+        else:
+            form = CSVForm()
+        return render(request, 'csvForm.html', context={'form':form})
+    
+    except Exception:
+        messages.error(request, 'Only CSV files are allowed')
+        return HttpResponseRedirect('/')

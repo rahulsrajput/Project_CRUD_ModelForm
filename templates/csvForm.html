@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block title %}Uploads{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-sm btn-outline-dark">Upload</button>
+            <a href="{% url 'home' %}" class="btn btn-sm btn-outline-success">Back</a>
+        </form>
+    </div>  
+</div>
+
+{% endblock %}
